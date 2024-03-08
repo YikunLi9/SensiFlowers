@@ -4,59 +4,64 @@
 #include <MQ135.h>
 
 
-#define LED_PIN_1 3  // 第一个灯串的引脚
-#define LED_PIN_2 4  // 第二个灯串的引脚
-#define LED_PIN_3 5  // 第三个灯串的引脚
-#define LED_COUNT 3  // 每个灯串的LED数量
+#define LED_PIN_1 3  // Pin of first LED
+#define LED_PIN_2 4  // Pin of second LED
+#define LED_PIN_3 5  // Pin of third LED
+#define LED_COUNT 3  // number of LED in every device
 
-#define DHTPIN 12
+#define DHTPIN 12 // Pin of DHT22 sensor
 
-#define TEMPPIN 9
-#define HUMIPIN 10
-#define CO2PIN 11
+#define TEMPPIN 9 // Pin of temperature servo
+#define HUMIPIN 10  // Pin of humidity servo 
+#define CO2PIN 11 // Pin of CO2 servo
 
-#define DHTTYPE DHT22
-#define PIN_MQ135 A2
+#define DHTTYPE DHT22 // type of DHT
+#define PIN_MQ135 A2  // Pin of CO2 sensor
 
-
-
-float save = 0;
-// 创建三个NeoPixel对象，分别代表三个灯串
+// Setup the Adafruit NeoPixel library with the LED count, pin, and color order
 Adafruit_NeoPixel strip1(LED_COUNT, LED_PIN_1, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel strip2(LED_COUNT, LED_PIN_2, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel strip3(LED_COUNT, LED_PIN_3, NEO_GRB + NEO_KHZ800);
 
+// Initialize sersons and servos
 DHT dht(DHTPIN, DHTTYPE);
 MQ135 mq135_sensor(PIN_MQ135);
-
 Servo servo_temp;
 Servo servo_humi;
 Servo servo_co2;
 
+// Save postion of servos in global variables
 float pos_t;
 float pos_h;
 float pos_c;
 
 void setup() {
+  // Initialize the serial port
   Serial.begin(9600);
+  // Initialize the DHT sensor
   dht.begin();
 
+  // Attach the servos to the correct pins and PWM range
   servo_temp.attach(TEMPPIN, 500, 1800);
   servo_humi.attach(HUMIPIN, 500, 1800);
   servo_co2.attach(CO2PIN, 500, 1800);
 
+  // Initialize the Adafruit NeoPixel library
   strip1.begin();
   strip2.begin();
   strip3.begin();
 
-  Serial.println("First zero");
+  // Set to zero
+  Serial.println("Zero!");
   RGB_control(0, 0, 0);
   Servo_control(0, 0, 0);
 
+  // Set the initial values for the servos
   pos_t = 0;
   pos_h = 0;
   pos_c = 0;
 
+  // boot up animation and test
   for(int i = 0; i <= 100; i++){
     // Serial.println(i);
     RGB_control(i * 0.1 + 20, i * 0.5 + 30, i * 6.5 + 350);
@@ -66,6 +71,7 @@ void setup() {
 }
 
 void loop() {
+  // Read the temperature, humidity, and ppm from sensors
   float t = dht.readTemperature();
   float h = dht.readHumidity();
   float ppm = mq135_sensor.getCorrectedPPM(t, h);
@@ -74,14 +80,16 @@ void loop() {
   // Serial.println(dht.readHumidity());
   // Serial.println(mq135_sensor.getRZero());
 
+  // Set the RGB strip and servo values
   RGB_control(t, h, ppm);
   Servo_control(t, h, ppm);
 
+  // loop per 30 seconds
   delay(30000);
 }
 
 void RGB_control(float t, float h, float ppm){
-    // 设置第一个灯串的颜色
+  // Set the RGB strip values based on the temperature
   if(t > 30){
     strip1.setPixelColor(0, 0, 255, 0);
     strip1.setPixelColor(1, 0, 255, 0);
@@ -101,7 +109,7 @@ void RGB_control(float t, float h, float ppm){
     strip1.show();
   }
 
-  // 设置第二个灯串的颜色
+  // Set the RGB strip values based on the ppm
   if(ppm >= 1000){
     strip2.setPixelColor(0, 255, 0, 0); 
     strip2.setPixelColor(1, 255, 0, 0); 
@@ -120,8 +128,8 @@ void RGB_control(float t, float h, float ppm){
     strip2.setPixelColor(2, 255, 0, co2_b);
     strip2.show();
   }
-
-  // 设置第三个灯串的颜色
+  
+  // Set the RGB strip values based on the humidity
   if(h > 80){
     strip3.setPixelColor(0, 0, 0, 254);
     strip3.setPixelColor(1, 0, 0, 254);
@@ -145,6 +153,7 @@ void RGB_control(float t, float h, float ppm){
 }
 
 void Servo_control(float t, float h, float ppm){
+  // Set the servo values based on the temperature
   if(t >= 30){
     float temp = 200;
     smoother(servo_temp, temp, &pos_t);
@@ -156,8 +165,10 @@ void Servo_control(float t, float h, float ppm){
     smoother(servo_temp, temp, &pos_t);
   }
 
+  // Set the servo values based on the humidity
   smoother(servo_humi, h * 2, &pos_h);
 
+  // Set the servo values based on the ppm
   if(ppm >= 1000){
     float temp = 200;
     smoother(servo_co2, temp, &pos_c);
@@ -170,6 +181,7 @@ void Servo_control(float t, float h, float ppm){
   }
 }
 
+// Smooth the servo rotating
 void smoother(Servo servo, float des, float* prev){
   if(*prev > des){
       for(*prev; *prev > des; *prev = (*prev * 100 - 1) / 100){
