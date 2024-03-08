@@ -88,6 +88,12 @@ void loop() {
   delay(30000);
 }
 
+
+
+/// @brief control RGB strip based on data
+/// @param t temperature
+/// @param h humidity
+/// @param ppm co2 value(ppm)
 void RGB_control(float t, float h, float ppm){
   // Set the RGB strip values based on the temperature
   if(t > 30){
@@ -152,6 +158,10 @@ void RGB_control(float t, float h, float ppm){
   }
 }
 
+/// @brief control servo position based on data
+/// @param t temperature
+/// @param h humidity
+/// @param ppm co2 value(ppm)
 void Servo_control(float t, float h, float ppm){
   // Set the servo values based on the temperature
   if(t >= 30){
@@ -181,15 +191,19 @@ void Servo_control(float t, float h, float ppm){
   }
 }
 
-// Smooth the servo rotating
-void smoother(Servo servo, float des, float* prev){
-  if(*prev > des){
-      for(*prev; *prev > des; *prev = (*prev * 100 - 1) / 100){
+
+/// @brief smooth the servo rotating
+/// @param servo servo you want to control
+/// @param tar target postion
+/// @param prev pointer of previous position(which is pos_t, pos_h, pos_c)
+void smoother(Servo servo, float tar, float* prev){
+  if(*prev > tar){
+      for(*prev; *prev > tar; *prev = (*prev * 100 - 1) / 100){
         servo.write(*prev);
         // delay(1);
       }
-    }else if(*prev < des){
-      for(*prev; *prev < des; *prev = (*prev * 100 + 1) / 100){
+    }else if(*prev < tar){
+      for(*prev; *prev < tar; *prev = (*prev * 100 + 1) / 100){
         servo.write(*prev);
         // delay(1);
       }
