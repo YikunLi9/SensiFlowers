@@ -54,7 +54,9 @@ void setup() {
   // Set to zero
   Serial.println("Zero!");
   RGB_control(0, 0, 0);
-  Servo_control(0, 0, 0);
+  servo_temp.write(0);
+  servo_humi.write(0);
+  servo_co2.write(0);
 
   // Set the initial values for the servos
   pos_t = 0;
@@ -63,9 +65,8 @@ void setup() {
 
   // boot up animation and test
   for(int i = 0; i <= 100; i++){
-    // Serial.println(i);
     RGB_control(i * 0.1 + 20, i * 0.5 + 30, i * 6.5 + 350);
-    Servo_control(i * 0.1 + 20, i * 0.5 +30, i * 6.5 + 350);
+    Servo_control(i * 0.5, i, i * 10);
     delay(30);
   }
 }
@@ -87,8 +88,6 @@ void loop() {
   // loop per 30 seconds
   delay(30000);
 }
-
-
 
 /// @brief control RGB strip based on data
 /// @param t temperature
@@ -129,9 +128,9 @@ void RGB_control(float t, float h, float ppm){
   }else{
     int co2_b = 0;
     co2_b = (ppm - 350) / 650 * 50;
-    strip2.setPixelColor(0, 255, 0, co2_b);
-    strip2.setPixelColor(1, 255, 0, co2_b);
-    strip2.setPixelColor(2, 255, 0, co2_b);
+    strip2.setPixelColor(0, 255, 0, 50 - co2_b);
+    strip2.setPixelColor(1, 255, 0, 50 - co2_b);
+    strip2.setPixelColor(2, 255, 0, 50 - co2_b);
     strip2.show();
   }
   
@@ -165,28 +164,28 @@ void RGB_control(float t, float h, float ppm){
 void Servo_control(float t, float h, float ppm){
   // Set the servo values based on the temperature
   if(t >= 30){
-    float temp = 200;
+    float temp = 180;
     smoother(servo_temp, temp, &pos_t);
   }else if(t <= 20){
     float temp = 0;
     smoother(servo_temp, temp, &pos_t);
   }else{
-    float temp = (t - 20) / 10 * 200;
+    float temp = (t - 20) / 10 * 180;
     smoother(servo_temp, temp, &pos_t);
   }
 
   // Set the servo values based on the humidity
-  smoother(servo_humi, h * 2, &pos_h);
+  smoother(servo_humi, h * 1.8, &pos_h);
 
   // Set the servo values based on the ppm
   if(ppm >= 1000){
-    float temp = 200;
+    float temp = 180;
     smoother(servo_co2, temp, &pos_c);
   }else if(ppm <= 350){
     float temp = 0;
     smoother(servo_co2, temp, &pos_c);
   }else{
-    float temp = (ppm - 350) / 650 * 200;
+    float temp = (ppm - 350) / 650 * 180;
     smoother(servo_co2, temp, &pos_c);
   }
 }
