@@ -66,7 +66,7 @@ void setup() {
   // boot up animation and test
   for(int i = 0; i <= 100; i++){
     RGB_control(i * 0.1 + 20, i * 0.5 + 30, i * 6.5 + 350);
-    Servo_control(i * 0.5, i, i * 10);
+    Servo_control(i * 0.1 + 20, i * 0.5 + 30, i * 6.5 + 350);
     delay(30);
   }
 }
