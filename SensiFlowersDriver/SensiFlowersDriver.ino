@@ -69,6 +69,8 @@ void setup() {
     Servo_control(i * 0.1 + 20, i * 0.5 + 30, i * 6.5 + 350);
     delay(30);
   }
+  // Serial.println("over");
+  // delay(10000);
 }
 
 void loop() {
@@ -86,7 +88,7 @@ void loop() {
   Servo_control(t, h, ppm);
 
   // loop per 30 seconds
-  delay(30000);
+  delay(10000);
 }
 
 /// @brief control RGB strip based on data
