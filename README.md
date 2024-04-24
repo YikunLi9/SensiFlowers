@@ -34,15 +34,23 @@ To achieve a more reliable and aesthetically pleasing design, the development sh
 The design evolved through a focus on material innovation. By integrating wooden panels with elastic TPU materials, the device was endowed with the necessary flexibility to mimic origami's bending and folding capabilities without compromising durability. This combination allowed significant bending angles while maintaining a robust structure within each modular unit.
 
 <div align=center>
-  <img src="https://github.com/YikunLi9/SensiFlowers/assets/146334863/b5222ab3-729f-4921-b96d-c36e27e0edde" alt="Shift to Origami Modelling" width="400">
+  <img src="/Doc/folding_animation.gif" alt="Material Innovation" width="400">
 </div>
 
 ### Development of the Operational Mechanism
 The operational mechanism was inspired by classic gear transmission systems, transforming rotational motion into linear motion. This design utilized widely available motors to drive the expansion and contraction of the flower-like structures from multiple angles, achieving a single motor-driven mechanism that allowed each unit to expand and contract based on pre-designed parameters.
 
+<div align=center>
+  <img src="/Doc/animation_05.gif" alt="Development of the Operational Mechanism" width="400">
+</div>
+
+
 ### Enclosure Design
 The final stage involved designing an enclosure to house and integrate the individual units while concealing sensors and electrical components. Laser-cut wooden panels were used to create a harmonious geometric arrangement that not only supports the structural integrity but also complements the aesthetic value of the device.
 
+<div align=center>
+  <img src="/Doc/pic3.png" alt="Enclosure Design" width="400">
+</div>
 
 ## How users can get started with the project?
 
