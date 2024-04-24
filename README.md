@@ -18,6 +18,32 @@ We designed this project to fill a gap in the artistic emotional value of enviro
 
 Therefore, this product completes the measurement and display of environmental data through the artistic expression form of mechanical flower and lamp effect, and has a certain physical significance and practical value at the same time, it can also be used as an art decoration, placed in the living room or hung on the wall, bringing certain aesthetic value.
 
+## How We Design？
+
+### Initial Concept and Prototyping
+The initial design concept focused on integrating natural elements, specifically using the imagery of a blooming flower to represent and interact with environmental data. Initial prototypes utilized thermally responsive metals to simulate the blooming process. However, this approach was found to interfere with the accurate monitoring of environmental conditions, as the device's primary function was compromised by the temperature sensitivity of the materials.
+
+### Shift to Origami Modelling
+To achieve a more reliable and aesthetically pleasing design, the development shifted towards origami modeling. This approach aimed to abstractly and artistically replicate the dynamic nature of a blooming flower, enhancing both visual appeal and functional reliability. Initial attempts to implement a hinged mechanism for transformation proved too complex and fragile for practical application.
+
+<div align=center>
+  <img src="https://github.com/YikunLi9/SensiFlowers/assets/146334863/024231f5-e3e3-42ef-bd44-bc0947ec2c36" alt="Shift to Origami Modelling" width="400">
+</div>
+
+### Material Innovation
+The design evolved through a focus on material innovation. By integrating wooden panels with elastic TPU materials, the device was endowed with the necessary flexibility to mimic origami's bending and folding capabilities without compromising durability. This combination allowed significant bending angles while maintaining a robust structure within each modular unit.
+
+<div align=center>
+  <img src="https://github.com/YikunLi9/SensiFlowers/assets/146334863/b5222ab3-729f-4921-b96d-c36e27e0edde" alt="Shift to Origami Modelling" width="400">
+</div>
+
+### Development of the Operational Mechanism
+The operational mechanism was inspired by classic gear transmission systems, transforming rotational motion into linear motion. This design utilized widely available motors to drive the expansion and contraction of the flower-like structures from multiple angles, achieving a single motor-driven mechanism that allowed each unit to expand and contract based on pre-designed parameters.
+
+### Enclosure Design
+The final stage involved designing an enclosure to house and integrate the individual units while concealing sensors and electrical components. Laser-cut wooden panels were used to create a harmonious geometric arrangement that not only supports the structural integrity but also complements the aesthetic value of the device.
+
+
 ## How users can get started with the project?
 
 The use of this product is very simple, you only need to plug the power cord into the socket and turn on the power supply. The processing and measurement of the data is carried out locally, without any network connection, and the user does not need to perform any assembly and other operations. Environmental data can be read from the color and openness of flowers.
