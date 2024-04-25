@@ -51,13 +51,40 @@ The final stage involved designing an enclosure to house and integrate the indiv
 <div align=center>
   <img src="/Doc/pic3.png" alt="Enclosure Design" width="400">
 </div>
+## How this project works?
+
+The project operates on data from the following sensors：
+
+| Environment Data             | Sensor |
+| ---------------------------- | ------ |
+| Temperature & Humidity       | DHT22  |
+| Carbon Dioxide Concentration | MQ135  |
+
+And we set different ranges for these three environmental data to control the opening and closing of the mechanical flowers:
+
+| Environment Data  | Upper Threshold of Optimal Range | Lower Threshold of Optimal Range |
+| ----------------- | -------------------------------- | -------------------------------- |
+| Temperature       | 30                               | 20                               |
+| Humidity          | 80                               | 30                               |
+| CO2 Concentration | 1000                             | 350                              |
+
+The mechanical flowers will fully open or close when the values exceed or fall below these thresholds. Simultaneously, the color temperature of the LEDs will vary within the following range:
+
+| Environment Data  | Base Colour | Upper Threshold (RGB) | Lower Threshold (RGB) |
+| ----------------- | ----------- | --------------------- | --------------------- |
+| Temperature       | Red         | 255, 0, 0             | 255, 50, 0            |
+| Humidity          | Blue        | 0, 0, 255             | 80, 80, 255           |
+| CO2 Concentration | Green       | 0, 255, 0             | 0, 255, 50            |
+
+
+
 
 ## How users can get started with the project?
 
 The use of this product is very simple, you only need to plug the power cord into the socket and turn on the power supply. The processing and measurement of the data is carried out locally, without any network connection, and the user does not need to perform any assembly and other operations. Environmental data can be read from the color and openness of flowers.
 
-## Team memmers & Product help
+## Team members & Product help
 
-A total of 4 team members completed the development of this product. Yuhang Lei completed the basic concept design of the product and the task assignment of the team, and undertook the welding task in the assembly process. Yukun Li compiled and debugged the development code of the single chip computer program, and gave guiding opinions on the form of data expression. Tianming Liu completed the design of the mechanical flower gear transmission group, and completed the 3d modeling and cutting of the gear group and the wooden shape. Zhouyu Jiang is responsible for the spraying of mechanical flower surface paint and hardware assembly, in addition to market research and follow-up product service research.
+A total of 4 team members completed the development of this product. Yuhang Lei completed the basic concept design of the product and the task assignment of the team, and undertook the welding task in the assembly process. Yikun Li compiled and debugged the development code of the single chip computer program, and gave guiding opinions on the form of data expression. Tianming Liu completed the design of the mechanical flower gear transmission group, and completed the 3d modeling and cutting of the gear group and the wooden shape. Zhouyu Jiang is responsible for the spraying of mechanical flower surface paint and hardware assembly, in addition to market research and follow-up product service research.
 
 If you have further inquiries about our product and services or other aspects, you can communicate with any team member through github private message to get detailed information or answers. The detail of product services would be talked later in this read.me file.
